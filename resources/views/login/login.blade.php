@@ -2,9 +2,9 @@
 @section('content')
     <div class="container w-25 p-4 card-effect" style="box-shadow: 0 6px 20px rgb(0 0 0 / 0.4); border-radius: 15px;">
         @if ($formAction == '/register')
-            <h1 class="h1">Register</h1>
+            <h1 class="h1 text-center">Register</h1>
         @else
-            <h1 class="h1">Log In</h1>
+            <h1 class="h1 text-center">Log In</h1>
         @endforelse
 
         <form class="p-4" action="{{$formAction}}" method="POST">
@@ -24,12 +24,12 @@
             @if ($formAction == '/register')
                 <div class="mb-3">
                     <label for="password_confirmation" class="form-label">Confirm Password</label>
-                    <input type="password_confirmation" name="password_confirmation" class="form-control" id="password_confirmation">
+                    <input type="password" name="password_confirmation" class="form-control" id="password_confirmation">
                 </div>
             @endif
             <button type="submit" class="btn btn-success">Go!</button>
             {{-- @if ($formAction === '/login')
-                <a href="{{route('register')}}" class="stretched-link align-bottom mt-2">Sign In</a>
+                <button type="button" href="{{route('register')}}" class="stretched-link align-bottom mt-2">Sign In</button>
             @endif --}}
         </form>
     </div>

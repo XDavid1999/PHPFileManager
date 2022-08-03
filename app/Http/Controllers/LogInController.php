@@ -13,7 +13,7 @@ class LogInController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public static function show()
+    public function show()
     {
         return view('login.login', ['formAction' => '/login']);
     }

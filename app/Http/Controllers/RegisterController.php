@@ -13,7 +13,7 @@ class RegisterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public static function show()
+    public function show()
     {
         return view('login.login', ['formAction' => '/register']);
     }
@@ -25,16 +25,16 @@ class RegisterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function register()
+    public function register(Request $request)
     {
-        $request = request() -> validate([
+        $request -> validate([
             'email' => 'required|email:rfc,dns|unique:users,email',
             'name' => 'required|unique:users,name',
             'password' => 'required|min:8',
             'password_confirmation' => 'required|same:password'
         ]);
 
-        $user = User::create($request);
+        $user = User::create($request -> all());
         auth()->login($user);
         return redirect('/dashboard');
     }
