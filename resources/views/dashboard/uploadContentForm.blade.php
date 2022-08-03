@@ -9,8 +9,8 @@
         <div class="p-4">
             <div class="py-2">
                 <label for="name" class="form-label">Name</label>
-                <input type="name" name="name" placeholder="Rename file name without extension" class="form-control" id="name"
-                    aria-describedby="nameHelp">
+                <input type="name" name="name" placeholder="Rename file name without extension" class="form-control"
+                    id="name" aria-describedby="nameHelp">
                 <div id="nameHelp" class="form-text">For default name of original file</div>
             </div>
             {{-- <div class="form-floating py-2">

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Storage;
-
+use App\Models\User;
+use App\Models\Category;
 
 use Illuminate\Http\Request;
 
@@ -37,7 +38,10 @@ class AwsS3 extends Controller
             ];
         }, $directories);
 
-        return view('dashboard.dashboardBase', ['directories' => $directories, 'files' => $files, 'currentDirectory' => $currentDirectory]);
+        $users = User::all();
+        $categories = Category::all();
+
+        return view('dashboard.dashboardBase', ['directories' => $directories, 'files' => $files, 'currentDirectory' => $currentDirectory, 'users' => $users, 'categories' => $categories]);
     }
 
     public function upload(Request $request)
