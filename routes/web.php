@@ -15,16 +15,6 @@ use App\Http\Controllers\DashboadController;
 */
 
 Route::group(['middleware' => ['auth']], function() {
-    // Route::get('/dashboard', function () {
-    //     $array = array(
-    //         "Fichero1.pdf" => "Nombre1",
-    //         "/Fichero2.pdf" => "Nombre2",
-    //         "Fichero3.pdf" => "Nombre3",
-    //         "/Fichero4.pdf" => "Nombre4",
-    //     );
-
-    //     return view('dashboard.dashboardBase',  ['array' => $array]);}) -> name('dashboard');
-
     Route::get('/dashboard', [DashboadController::class, 'show']) -> name('dashboard');
     /**
      *
@@ -49,7 +39,7 @@ Route::group(['middleware' => ['auth']], function() {
 
 Route::get('/', [LogInController::class, 'show']);
 Route::get('/login', [LogInController::class, 'show'])-> name('login');
-Route::post('/login', [LogInController::class, 'attempt'])-> name('register');
+Route::post('/login', [LogInController::class, 'attempt'])-> name('login');
 Route::get('/register', [RegisterController::class, 'show']) -> name('register');
 Route::post('/register', [RegisterController::class, 'register']) -> name('register');
 

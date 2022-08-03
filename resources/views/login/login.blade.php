@@ -28,9 +28,11 @@
                 </div>
             @endif
             <button type="submit" class="btn btn-success">Go!</button>
-            {{-- @if ($formAction === '/login')
-                <button type="button" href="{{route('register')}}" class="stretched-link align-bottom mt-2">Sign In</button>
-            @endif --}}
         </form>
+        @if ($formAction === '/login')
+            <form action="{{route('register')}}">
+                <button type="submit" class="btn btn-link px-4">Don't Have an Acoount Yet? Register Now!</button>
+            </form>
+        @endif
     </div>
 @endsection
