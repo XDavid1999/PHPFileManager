@@ -1,6 +1,6 @@
 <div>
     @include('dashboard.uploadContentForm', ['currentDirectory' => $currentDirectory])
-    {{-- @include('dashboard.moveFolderForm') --}}
+    @include('dashboard.moveFolderForm', ['array' => []])
     <div class="d-flex justify-content-between p-4 mx-2">
         <h2 class=" text-center">My Content</h2>
         <div class="d-flex">
@@ -82,7 +82,7 @@
                         <input type="hidden" name="visibility" value="public">
                         <input class="form-check-input" name="visibility" type="checkbox"
                             value="{{$f['visibility'] == 'public' ? 'private' : 'public'}}" {{
-                            ($f['visibility']=='private' ? 'checked' : '' ) }}
+                            ($f['visibility']=='public' ? 'checked' : '' ) }}
                             onchange="document.getElementById('{{$f['name']}}').submit();">
                         <label class="form-check-label" for="privacity">
                             {{$f['visibility']}}
@@ -127,7 +127,7 @@
                 <span class="mx-3">{{$f['name']}}</span>
                 <form action="{{ route('destroy') }}" method="POST">
                     @csrf
-                    <input type="hidden" name="type" value="d">
+                    <input type="hidden" name="type" value="-">
                     <input type="hidden" name="path" value="{{ $f['path'] }}">
                     <button style="border: none;" type="submit">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
@@ -154,7 +154,7 @@
     }
 
     function displayUploadDialog() {
-        // closeMoveDialog();
+        closeMoveDialog();
         document.getElementById("uploadDialog").style.display = "block";
     }
 

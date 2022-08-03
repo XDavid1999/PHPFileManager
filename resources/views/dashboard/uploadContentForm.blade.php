@@ -5,13 +5,13 @@
     <form action="{{ route('upload') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="type" value="-">
-        <input type="hidden" name="currentDirectory" placeholder="Rename file name" value="{{$currentDirectory}}"
-            aria-describedby="nameHelp">
-        <div id="nameHelp" class="form-text">For default name of original file</div>
+        <input type="hidden" name="currentDirectory" value="{{$currentDirectory}}">
         <div class="p-4">
             <div class="py-2">
                 <label for="name" class="form-label">Name</label>
-                <input type="name" name="name" class="form-control" id="name">
+                <input type="name" name="name" placeholder="Rename file name without extension" class="form-control" id="name"
+                    aria-describedby="nameHelp">
+                <div id="nameHelp" class="form-text">For default name of original file</div>
             </div>
             {{-- <div class="form-floating py-2">
                 <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
@@ -26,8 +26,10 @@
                     <input class="form-control form-control-sm" id="formFileSm" type="file" name="file">
                 </div>
                 <div class="form-check form-switch align-middle mx-1">
-                    <input class="form-check-input mx-1" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                    <label class="form-check-label" for="flexSwitchCheckDefault">Privacy</label>
+                    <input type="hidden" name="visibility" value="private">
+                    <input class="form-check-input" name="visibility" type="checkbox" value="public"
+                        id="flexSwitchCheckDefault">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">Public</label>
                 </div>
             </div>
         </div>
