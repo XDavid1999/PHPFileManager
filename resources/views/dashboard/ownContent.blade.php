@@ -76,14 +76,14 @@
 
 <script>
     function displayMoveDialog() {
+        closeUploadDialog();
         document.getElementById("moveDialog").style.display = "block";
-        // get body and set class move
-        // document.getElementsByTagName("body")[0].classList.add("move");
     }
     function closeMoveDialog() {
         document.getElementById("moveDialog").style.display = "none";
     }
     function displayUploadDialog() {
+        closeMoveDialog();
         document.getElementById("uploadDialog").style.display = "block";
     }
     function closeUploadDialog() {

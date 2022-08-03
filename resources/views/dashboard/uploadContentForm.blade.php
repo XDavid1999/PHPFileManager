@@ -10,12 +10,13 @@
                 <input type="name" name="name" class="form-control" id="name">
             </div>
             <div class="form-floating py-2">
+
                 <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
                     @foreach ($array as $key=>$value)
                         <option value="{{$key}}">{{$value}}</option>
                     @endforeach
                 </select>
-                <label for="floatingSelect">Works with selects</label>
+                <label for="floatingSelect">Category</label>
             </div>
             <div class="d-flex justify-content-between py-2">
                 <div class="mb-3">

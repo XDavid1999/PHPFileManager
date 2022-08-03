@@ -11,7 +11,7 @@
                         <option value="{{$key}}">{{$value}}</option>
                     @endforeach
                 </select>
-                <label for="floatingSelect">Works with selects</label>
+                <label for="floatingSelect">Source Directory</label>
             </div>
             <div class="form-floating py-2">
                 <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
@@ -19,7 +19,7 @@
                         <option value="{{$key}}">{{$value}}</option>
                     @endforeach
                 </select>
-                <label for="floatingSelect">Works with selects</label>
+                <label for="floatingSelect">Target Directory</label>
             </div>
         </div>
         <div class="d-flex justify-content-between px-4">
