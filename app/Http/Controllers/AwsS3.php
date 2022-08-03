@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Storage;
-
+use App\Models\User;
+use App\Models\Category;
 
 use Illuminate\Http\Request;
 
@@ -37,7 +38,10 @@ class AwsS3 extends Controller
             ];
         }, $directories);
 
-        return view('dashboard.dashboardBase', ['directories' => $directories, 'files' => $files, 'currentDirectory' => $currentDirectory]);
+        $users = User::all();
+        $categories = Category::all();
+
+        return view('dashboard.dashboardBase', ['directories' => $directories, 'files' => $files, 'currentDirectory' => $currentDirectory, 'users' => $users, 'categories' => $categories]);
     }
 
     public function upload(Request $request)
@@ -57,9 +61,9 @@ class AwsS3 extends Controller
                     return redirect()->back()->with('error', 'No file selected');
                 }
                 // Get original name
-                $fileName = $file->getClientOriginalName();
+                $fileName = $request->name ? $request->name . '.' . $file->getClientOriginalExtension() : $file->getClientOriginalName();
                 // Upload file
-                Storage::disk('s3')->put($request->currentDirectory . '/' . $fileName, file_get_contents($file));
+                Storage::disk('s3')->put($request->currentDirectory . '/' . $fileName, file_get_contents($file), $request->visibility);
 
                 return redirect()->back()->with('success', 'File uploaded successfully');
             }
