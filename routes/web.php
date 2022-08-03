@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LogInController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,17 +15,17 @@ use App\Http\Controllers\CategoryController;
 */
 
 Route::group(['middleware' => ['auth']], function() {
-    Route::get('/dashboard', function () {
-        $array = array(
-            "Fichero1.pdf" => "Nombre1",
-            "/Fichero2.pdf" => "Nombre2",
-            "Fichero3.pdf" => "Nombre3",
-            "/Fichero4.pdf" => "Nombre4",
-        );
+    // Route::get('/dashboard', function () {
+    //     $array = array(
+    //         "Fichero1.pdf" => "Nombre1",
+    //         "/Fichero2.pdf" => "Nombre2",
+    //         "Fichero3.pdf" => "Nombre3",
+    //         "/Fichero4.pdf" => "Nombre4",
+    //     );
 
-        return view('dashboard.dashboardBase',  ['array' => $array]);
-    }) -> name('dashboard');
+    //     return view('dashboard.dashboardBase',  ['array' => $array]);}) -> name('dashboard');
 
+    Route::get('/dashboard', [DashboadController::class, 'show']) -> name('dashboard');
     /**
      *
      * Category paths

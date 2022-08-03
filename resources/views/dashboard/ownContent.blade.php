@@ -66,13 +66,6 @@
         @endforeach
     </div>
 </div>
-{{--
-<style>
-    .move{
-        background-color: rgb(0, 0, 0);
-        background-color: rgba(0, 0, 0, 0.4);
-    }
-</style> --}}
 
 <script>
     function displayMoveDialog() {
