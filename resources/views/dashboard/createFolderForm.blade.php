@@ -4,6 +4,8 @@
     </div>
     <form action="{{ route('upload') }}" method="POST" enctype="multipart/form-data">
         @csrf
+        <input type="hidden" name="type" value="d">
+        <input type="hidden" name="currentDirectory" value="{{$currentDirectory}}">
         <div class="p-4">
             <div class="py-2">
                 <label for="name" class="form-label">Name</label>

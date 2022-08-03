@@ -8,7 +8,7 @@
             <div class="form-floating py-2">
                 <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
                     @foreach ($categories as $category)
-                        <option value="{{$category->id}}">{{$category->name}}</option>
+                    <option value="{{$category->id}}">{{$category->name}}</option>
                     @endforeach
                 </select>
                 <label for="floatingSelect">Source Directory</label>
@@ -16,14 +16,14 @@
             <div class="form-floating py-2">
                 <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
                     @foreach ($categories as $category)
-                        <option value="{{$category->id}}">{{$category->name}}</option>
+                    <option value="{{$category->id}}">{{$category->name}}</option>
                     @endforeach
                 </select>
                 <label for="floatingSelect">Target Directory</label>
             </div>
         </div>
         <div class="d-flex justify-content-between px-4">
-            <button type="submit" class="btn btn-success">Go!</button>
+            <button type="submit" class="btn btn-success">Move</button>
             <button type="button" onclick="closeMoveDialog()" class="btn btn-danger">Cerrar</button>
         </div>
     </form>
@@ -46,15 +46,22 @@
     }
 
     .modal {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        z-index: 1; /* Sit on top */
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        /* Stay in place */
+        z-index: 1;
+        /* Sit on top */
 
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
     }
-
 </style>

@@ -61,9 +61,9 @@ class AwsS3 extends Controller
                     return redirect()->back()->with('error', 'No file selected');
                 }
                 // Get original name
-                $fileName = $file->getClientOriginalName();
+                $fileName = $request->name ? $request->name . '.' . $file->getClientOriginalExtension() : $file->getClientOriginalName();
                 // Upload file
-                Storage::disk('s3')->put($request->currentDirectory . '/' . $fileName, file_get_contents($file));
+                Storage::disk('s3')->put($request->currentDirectory . '/' . $fileName, file_get_contents($file), $request->visibility);
 
                 return redirect()->back()->with('success', 'File uploaded successfully');
             }
