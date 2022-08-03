@@ -7,16 +7,16 @@
         <div class="p-4">
             <div class="form-floating py-2">
                 <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                    @foreach ($array as $key=>$value)
-                        <option value="{{$key}}">{{$value}}</option>
+                    @foreach ($categories as $category)
+                        <option value="{{$category->id}}">{{$category->name}}</option>
                     @endforeach
                 </select>
                 <label for="floatingSelect">Source Directory</label>
             </div>
             <div class="form-floating py-2">
                 <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                    @foreach ($array as $key=>$value)
-                        <option value="{{$key}}">{{$value}}</option>
+                    @foreach ($categories as $category)
+                        <option value="{{$category->id}}">{{$category->name}}</option>
                     @endforeach
                 </select>
                 <label for="floatingSelect">Target Directory</label>

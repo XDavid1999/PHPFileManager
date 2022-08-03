@@ -1,8 +1,10 @@
 <div>
     @include('dashboard.uploadContentForm', ['currentDirectory' => $currentDirectory])
-    {{-- @include('dashboard.moveFolderForm') --}}
+    @include('dashboard.moveFolderForm', ['categories' => $categories])
+    @include('dashboard.createFolderForm')
+
     <div class="d-flex justify-content-between p-4 mx-2">
-        <h2 class=" text-center">My Content</h2>
+        <h2 class=" text-center">My Content - {{$currentDirectory}}</h2>
         <div class="d-flex">
             @if (str_contains($currentDirectory, '/'))
             <a class="ms-2" href="{{ route('dashboard', 'path='.getParentDirectory($currentDirectory)) }}">
@@ -13,6 +15,10 @@
                 </svg>
             </a>
             @endif
+            <svg onclick="displayCreateFolderDialog()" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-folder-plus mx-4" viewBox="0 0 16 16">
+                <path d="m.5 3 .04.87a1.99 1.99 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2zm5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19c-.24 0-.47.042-.683.12L1.5 2.98a1 1 0 0 1 1-.98h3.672z"/>
+                <path d="M13.5 10a.5.5 0 0 1 .5.5V12h1.5a.5.5 0 1 1 0 1H14v1.5a.5.5 0 1 1-1 0V13h-1.5a.5.5 0 0 1 0-1H13v-1.5a.5.5 0 0 1 .5-.5z"/>
+            </svg>
             <svg onclick="displayMoveDialog()" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="orange"
                 class="bi bi-folder-symlink mx-4" viewBox="0 0 16 16">
                 <path
@@ -146,6 +152,7 @@
 <script>
     function displayMoveDialog() {
         closeUploadDialog();
+        closeCreateFolderDialog();
         document.getElementById("moveDialog").style.display = "block";
     }
 
@@ -154,11 +161,22 @@
     }
 
     function displayUploadDialog() {
-        // closeMoveDialog();
+        closeMoveDialog();
+        closeCreateFolderDialog();
         document.getElementById("uploadDialog").style.display = "block";
     }
 
     function closeUploadDialog() {
         document.getElementById("uploadDialog").style.display = "none";
+    }
+
+    function displayCreateFolderDialog() {
+        closeUploadDialog();
+        closeMoveDialog();
+        document.getElementById("createFolderDialog").style.display = "block";
+    }
+
+    function closeCreateFolderDialog() {
+        document.getElementById("createFolderDialog").style.display = "none";
     }
 </script>
