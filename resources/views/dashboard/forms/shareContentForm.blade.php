@@ -14,7 +14,7 @@
                     <option value="{{$f['path']}}">{{$f['name']}}</option>
                     @endforeach
                 </select>
-                <label for="floatingSelect">User</label>
+                <label for="floatingSelect">File</label>
             </div>
             <div class="form-floating py-2">
                 <select name="user" class="form-select" id="floatingSelect" aria-label="Floating label select example">
