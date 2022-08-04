@@ -1,5 +1,5 @@
 <div>
-    @include('dashboard.uploadContentForm', ['currentDirectory' => $currentDirectory])
+    @include('dashboard.uploadContentForm', ['currentDirectory' => $currentDirectory], ['categories' => $categories])
     @include('dashboard.moveFolderForm', ['categories' => $categories])
     @include('dashboard.createFolderForm')
 
