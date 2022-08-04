@@ -18,8 +18,9 @@ class LogInController extends Controller
         return view('login.login', ['formAction' => '/login']);
     }
 
-    public function attempt(){
-        if(Auth::attempt(['name' => request('name'), 'email' => request('email'), 'password' => request('password')])) {
+    public function attempt()
+    {
+        if (Auth::attempt(['name' => request('name'), 'email' => request('email'), 'password' => request('password')])) {
             return redirect('/dashboard');
         }
 

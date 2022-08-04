@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
+use Illuminate\Support\Facades\Storage;
 
 class RegisterController extends Controller
 {
@@ -27,15 +28,21 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
-        $request -> validate([
+        $request->validate([
             'email' => 'required|email:rfc,dns|unique:users,email',
             'name' => 'required|unique:users,name',
             'password' => 'required|min:8',
             'password_confirmation' => 'required|same:password'
         ]);
 
-        $user = User::create($request -> all());
+        $user = User::create($request->all());
         auth()->login($user);
+
+        // Create directory
+        Storage::disk('s3')->makeDirectory('/' . $user->name);
+        // Create shared directory
+        Storage::disk('s3')->makeDirectory('/' . $user->name . '/shared');
+
         return redirect('/dashboard');
     }
 }
