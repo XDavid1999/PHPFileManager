@@ -2,23 +2,24 @@
     <div>
         <h2 class="h2 text-center">Share File</h2>
     </div>
-    <form action="{{ route('upload') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('shared') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="type" value="-">
         <input type="hidden" name="currentDirectory" value="{{$currentDirectory}}">
         <div class="p-4">
             <div class="form-floating py-2">
-                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                <select name="source" class="form-select" id="floatingSelect"
+                    aria-label="Floating label select example">
                     @foreach ($files as $file=>$f)
-                        <option value="{{$f['name']}}">{{$f['name']}}</option>
+                    <option value="{{$f['path']}}">{{$f['name']}}</option>
                     @endforeach
                 </select>
                 <label for="floatingSelect">User</label>
             </div>
             <div class="form-floating py-2">
-                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                <select name="user" class="form-select" id="floatingSelect" aria-label="Floating label select example">
                     @foreach ($users as $user)
-                        <option value="{{$user->id}}">{{$user->name}}</option>
+                    <option value="{{$user->name}}">{{$user->name}}</option>
                     @endforeach
                 </select>
                 <label for="floatingSelect">User</label>

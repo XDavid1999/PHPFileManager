@@ -14,9 +14,11 @@
                 <div id="nameHelp" class="form-text">For default name of original file</div>
             </div>
             <div class="form-floating py-2">
-                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                <select name="category" class="form-select" id="floatingSelect"
+                    aria-label="Floating label select example">
+                    <option disabled selected value>Select category</option>
                     @foreach ($categories as $category)
-                        <option value="{{$category->id}}">{{$category->name}}</option>
+                    <option value="{{$category->name}}">{{$category->name}}</option>
                     @endforeach
                 </select>
                 <label for="floatingSelect">Category</label>
@@ -61,5 +63,4 @@
             width: 90% !important;
         }
     }
-
 </style>

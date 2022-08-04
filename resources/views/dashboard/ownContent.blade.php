@@ -1,23 +1,25 @@
 <div>
-    @include('dashboard.forms.uploadContentForm', ['currentDirectory' => $currentDirectory], ['categories' => $categories])
-    @include('dashboard.forms.moveFolderForm', ['categories' => $categories])
+    @include('dashboard.forms.uploadContentForm', ['currentDirectory' => $currentDirectory, ['categories' =>
+    $categories]])
+    @include('dashboard.forms.moveFolderForm', ['directories' => str_contains($currentDirectory, '/') ?
+    addParentDirectoryToArrayDirectories($directories, $currentDirectory) : $directories, 'files' => $files])
     @include('dashboard.forms.createFolderForm')
     @include('dashboard.forms.shareContentForm', ['users' => $users, 'files' => $files])
 
     <style>
-        .ownContentHead{
+        .ownContentHead {
             display: flex;
             justify-content: space-between;
             padding: 20px;
             margin: 0px 20px;
         }
 
-        .icons{
+        .icons {
             margin: 0px 20px;
         }
 
         @media (max-width: 768px) {
-            .ownContentHead{
+            .ownContentHead {
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
@@ -25,24 +27,23 @@
                 margin: 0px;
             }
 
-            .icons{
+            .icons {
                 width: 20px !important;
             }
         }
-
     </style>
 
     <div class="ownContentHead">
         <h2 class=" text-center">My Content - {{$currentDirectory}}</h2>
         <div class="d-flex">
             @if (str_contains($currentDirectory, '/'))
-                <a class="ms-2" href="{{ route('dashboard', 'path='.getParentDirectory($currentDirectory)) }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
-                        class="bi bi-arrow-left-circle icons" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                            d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
-                    </svg>
-                </a>
+            <a class="ms-2" href="{{ route('dashboard', 'path='.getParentDirectory($currentDirectory)) }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                    class="bi bi-arrow-left-circle mx-4" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
+                </svg>
+            </a>
             @endif
             <svg onclick="displayCreateFolderDialog()" xmlns="http://www.w3.org/2000/svg" width="40" height="40"
                 fill="#DB7DFA" class="bi bi-folder-plus icons" viewBox="0 0 16 16">
@@ -65,8 +66,8 @@
                 <path
                     d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383zm.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z" />
             </svg>
-            <svg onclick="displayshareContentDialog()" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#F7BB74"
-                class="bi bi-share-fill icons" viewBox="0 0 16 16">
+            <svg onclick="displayshareContentDialog()" xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                fill="#F7BB74" class="bi bi-share-fill px-2" viewBox="0 0 16 16">
                 <path
                     d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5z" />
             </svg>
@@ -107,7 +108,7 @@
                     @csrf
                     <div class="form-check form-switch">
                         <input type="hidden" name="path" value="{{ $f['path'] }}">
-                        <input type="hidden" name="visibility" value="public">
+                        <input type="hidden" name="visibility" value="private">
                         <input class="form-check-input" name="visibility" type="checkbox"
                             value="{{$f['visibility'] == 'public' ? 'private' : 'public'}}" {{
                             ($f['visibility']=='public' ? 'checked' : '' ) }}
@@ -118,14 +119,14 @@
                     </div>
                 </form>
                 @if ($f['visibility'] == 'private')
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-lock-fill mx-1"
-                    viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red"
+                    class="bi bi-lock-fill mx-1 icons" viewBox="0 0 16 16">
                     <path
                         d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
                 </svg>
                 @else
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="green" class="bi bi-unlock-fill mx-1"
-                    viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="green"
+                    class="bi bi-unlock-fill mx-1 icons" viewBox="0 0 16 16">
                     <path
                         d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2z" />
                 </svg>
@@ -142,6 +143,20 @@
             </div>
             <div class="d-flex justify-content-center mt-2">
                 <span class="mx-3">{{$f['name']}}</span>
+                <form action="{{ route('get') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="type" value="-">
+                    <input type="hidden" name="path" value="{{ $f['path'] }}">
+                    <button style="border: none;" type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-cloud-arrow-down" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M7.646 10.854a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 9.293V5.5a.5.5 0 0 0-1 0v3.793L6.354 8.146a.5.5 0 1 0-.708.708l2 2z" />
+                            <path
+                                d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383zm.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z" />
+                        </svg>
+                    </button>
+                </form>
                 <form action="{{ route('destroy') }}" method="POST">
                     @csrf
                     <input type="hidden" name="type" value="-">
