@@ -18,7 +18,7 @@ class AwsS3 extends Controller
 
     public function index(Request $request)
     {
-        $currentDirectory = $request->query('path') ?? 'test';
+        $currentDirectory = $request->query('path') ?? auth()->user()->name;
 
         $files = Storage::disk('s3')->files($currentDirectory);
         $directories = Storage::disk('s3')->directories($currentDirectory);
