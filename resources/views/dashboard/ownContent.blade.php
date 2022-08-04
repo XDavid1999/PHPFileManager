@@ -1,6 +1,7 @@
 <div>
     @include('dashboard.uploadContentForm', ['currentDirectory' => $currentDirectory])
-    @include('dashboard.moveFolderForm', ['categories' => $categories])
+    @include('dashboard.moveFolderForm', ['directories' => str_contains($currentDirectory, '/') ?
+    addParentDirectoryToArrayDirectories($directories, $currentDirectory) : $directories, 'files' => $files])
     @include('dashboard.createFolderForm')
 
     <div class="d-flex justify-content-between p-4 mx-2">

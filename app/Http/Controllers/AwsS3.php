@@ -20,6 +20,18 @@ class AwsS3 extends Controller
     {
         $currentDirectory = $request->query('path') ?? auth()->user()->name;
 
+        // extract first parent directory from current directory
+        $parentDirectory = explode('/', $currentDirectory)[0];
+        // if parent directory not is name of user not privilegies for access to other user directory
+        if ($parentDirectory !== auth()->user()->name) {
+            return redirect()->back()->with('error', 'You have no privileges for this directory');
+        }
+
+        // check if current directory exits in S3
+        if (!Storage::disk('s3')->exists($currentDirectory)) {
+            return redirect()->back()->with('error', 'Directory not found');
+        }
+
         $files = Storage::disk('s3')->files($currentDirectory);
         $directories = Storage::disk('s3')->directories($currentDirectory);
 
@@ -76,7 +88,16 @@ class AwsS3 extends Controller
 
     public function destroy(Request $request)
     {
-        $request->type == 'd' ?  Storage::disk('s3')->deleteDirectory($request->path) : Storage::disk('s3')->delete($request->path);
+        if ($request->type == 'd') {
+            // If delete directory is shared directory not allowed remove
+            if ($request->path == auth()->user()->name . '/shared') {
+                return redirect()->back()->with('error', 'You cant delete shared directory');
+            }
+
+            Storage::disk('s3')->deleteDirectory($request->path);
+        } else {
+            Storage::disk('s3')->delete($request->path);
+        }
 
         return redirect()->back()->with('success', ($request->type == 'd' ? 'Directory' : 'File') . ' deleted successfully');
     }
@@ -86,5 +107,19 @@ class AwsS3 extends Controller
         Storage::disk('s3')->setVisibility($request->path, $request->visibility);
 
         return redirect()->back()->with('success', 'Change privacity successfully');
+    }
+
+    public function move(Request $request)
+    {
+        // Check if request exists source and target
+        if ($request->has('source') && $request->has('target')) {
+            $nameFile = getLastChildFromPath($request->source);
+
+            // Move file from one directory to another
+            Storage::disk('s3')->move($request->source, $request->target . '/' . $nameFile);
+            return redirect()->back()->with('success', 'File move success');
+        } else {
+            return redirect()->back()->with('error', 'Select source and target');
+        }
     }
 }
