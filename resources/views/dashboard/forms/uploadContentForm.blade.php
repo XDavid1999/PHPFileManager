@@ -1,4 +1,4 @@
-<div id="uploadDialog" id="page-mask" class="dialog">
+<div id="uploadDialog" class="dialog">
     <div>
         <h2 class="h2 text-center">Upload file in {{$currentDirectory}}</h2>
     </div>
@@ -13,14 +13,16 @@
                     id="name" aria-describedby="nameHelp">
                 <div id="nameHelp" class="form-text">For default name of original file</div>
             </div>
-            {{-- <div class="form-floating py-2">
-                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                    @foreach ($array as $key=>$value)
-                    <option value="{{$key}}">{{$value}}</option>
+            <div class="form-floating py-2">
+                <select name="category" class="form-select" id="floatingSelect"
+                    aria-label="Floating label select example">
+                    <option disabled selected value>Select category</option>
+                    @foreach ($categories as $category)
+                    <option value="{{$category->name}}">{{$category->name}}</option>
                     @endforeach
                 </select>
                 <label for="floatingSelect">Category</label>
-            </div> --}}
+            </div>
             <div class="d-flex justify-content-between py-2">
                 <div class="mb-3">
                     <input class="form-control form-control-sm" id="formFileSm" type="file" name="file">
@@ -56,12 +58,9 @@
         width: 500px
     }
 
-    #page-mask {
-        background: rgba(0, 0, 0, 0.5);
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+    @media (max-width: 768px) {
+        .dialog {
+            width: 90% !important;
+        }
     }
 </style>

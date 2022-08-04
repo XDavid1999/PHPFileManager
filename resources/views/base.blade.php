@@ -13,6 +13,7 @@
 </head>
 
 <body>
+    @auth
     <nav class="navbar navbar-expand-lg bg-light mb-5">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">File Manager</a>
@@ -31,14 +32,15 @@
                     </li>
                 </ul>
             </div>
-            @auth
-            <button type="button" class="btn btn-outline-primary mx-3">{{ auth()->user()->name }}</button>
-            <form action="{{route('logout')}}" method="GET">
-                <button type="submit" class="btn btn-outline-danger">Log Out</button>
-            </form>
-            @endauth
+            <div class="d-flex pt-3">
+                <form action="{{route('logout')}}" method="GET">
+                    <button type="button" class="btn btn-outline-primary mx-1">{{ auth()->user()->name }}</button>
+                    <button type="submit" class="btn btn-outline-danger mx-1">Log Out</button>
+                </form>
+            </div>
         </div>
     </nav>
+    @endauth
 
     @yield('content')
 

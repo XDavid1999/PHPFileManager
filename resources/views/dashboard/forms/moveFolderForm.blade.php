@@ -2,21 +2,23 @@
     <div>
         <h2 class="text-center px-4">Move File to Folder</h2>
     </div>
-    <form action="" method="POST">
+    <form action="{{route('move')}}" method="POST">
         @csrf
         <div class="p-4">
             <div class="form-floating py-2">
-                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                    @foreach ($categories as $category)
-                    <option value="{{$category->id}}">{{$category->name}}</option>
+                <select name="source" class="form-select" id="floatingSelect"
+                    aria-label="Floating label select example">
+                    @foreach ($files as $file => $f)
+                    <option value="{{$f['path']}}">{{$f['path']}}</option>
                     @endforeach
                 </select>
-                <label for="floatingSelect">Source Directory</label>
+                <label for="floatingSelect">Source file</label>
             </div>
             <div class="form-floating py-2">
-                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                    @foreach ($categories as $category)
-                    <option value="{{$category->id}}">{{$category->name}}</option>
+                <select name="target" class="form-select" id="floatingSelect"
+                    aria-label="Floating label select example">
+                    @foreach ($directories as $directory => $d)
+                    <option value="{{$d['path']}}">{{$d['path']}}</option>
                     @endforeach
                 </select>
                 <label for="floatingSelect">Target Directory</label>
@@ -45,23 +47,9 @@
         width: 500px;
     }
 
-    .modal {
-        display: none;
-        /* Hidden by default */
-        position: fixed;
-        /* Stay in place */
-        z-index: 1;
-        /* Sit on top */
-
-        width: 100%;
-        /* Full width */
-        height: 100%;
-        /* Full height */
-        overflow: auto;
-        /* Enable scroll if needed */
-        background-color: rgb(0, 0, 0);
-        /* Fallback color */
-        background-color: rgba(0, 0, 0, 0.4);
-        /* Black w/ opacity */
+    @media (max-width: 768px) {
+        .dialog {
+            width: 90% !important;
+        }
     }
 </style>
