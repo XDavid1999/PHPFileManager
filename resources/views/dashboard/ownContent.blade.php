@@ -1,4 +1,4 @@
-<div>
+<div class="outlined">
     @include('dashboard.forms.uploadContentForm', ['currentDirectory' => $currentDirectory, ['categories' =>
     $categories]])
     @include('dashboard.forms.moveFolderForm', ['directories' => str_contains($currentDirectory, '/') ?
@@ -46,12 +46,12 @@
             </svg>
         </div>
     </div>
-    <div class="d-flex justify-content-center px-5 pb-5 row">
+    <div class="d-flex justify-content-center px-5 row">
         @foreach ($directories as $directory=>$d)
         <div class="p-4 col col-lg-3 col-md-4 col-md-12 mt-4">
             <div class="d-flex justify-content-center my-2">
                 <a href="{{ route('dashboard', 'path='.$d['path']) }}" xmlns="http://www.w3.org/2000/svg">
-                    <svg width="100" height="100" fill="#FF8A6D" class="bi bi-folder2" viewBox="0 0 16 16">
+                    <svg width="80" height="80" fill="#FF8A6D" class="bi bi-folder2" viewBox="0 0 16 16">
                         <path
                             d="M1 3.5A1.5 1.5 0 0 1 2.5 2h2.764c.958 0 1.76.56 2.311 1.184C7.985 3.648 8.48 4 9 4h4.5A1.5 1.5 0 0 1 15 5.5v7a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 12.5v-9zM2.5 3a.5.5 0 0 0-.5.5V6h12v-.5a.5.5 0 0 0-.5-.5H9c-.964 0-1.71-.629-2.174-1.154C6.374 3.334 5.82 3 5.264 3H2.5zM14 7H2v5.5a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 .5-.5V7z" />
                     </svg>
@@ -148,47 +148,3 @@
     </div>
 </div>
 
-<script>
-    function displayMoveDialog() {
-        closeUploadDialog();
-        closeCreateFolderDialog();
-        closeshareContentDialog();
-        document.getElementById("moveDialog").style.display = "block";
-    }
-
-    function closeMoveDialog() {
-        document.getElementById("moveDialog").style.display = "none";
-    }
-
-    function displayUploadDialog() {
-        closeMoveDialog();
-        closeCreateFolderDialog();
-        closeshareContentDialog();
-        document.getElementById("uploadDialog").style.display = "block";
-    }
-
-    function closeUploadDialog() {
-        document.getElementById("uploadDialog").style.display = "none";
-    }
-
-    function displayCreateFolderDialog() {
-        closeUploadDialog();
-        closeMoveDialog();
-        closeshareContentDialog();
-        document.getElementById("createFolderDialog").style.display = "block";
-    }
-
-    function closeCreateFolderDialog() {
-        document.getElementById("createFolderDialog").style.display = "none";
-    }
-
-    function displayshareContentDialog() {
-        closeUploadDialog();
-        closeMoveDialog();
-        closeCreateFolderDialog();
-        document.getElementById("shareContentDialog").style.display = "block";
-    }
-    function closeshareContentDialog() {
-        document.getElementById("shareContentDialog").style.display = "none";
-    }
-</script>
