@@ -74,7 +74,7 @@
     </div>
     <div class="d-flex justify-content-center px-5 pb-5 row">
         @foreach ($directories as $directory=>$d)
-        <div class="p-4 col col-lg-3 col-md-4 col-md-12 mt-2">
+        <div class="p-4 col col-lg-3 col-md-4 col-md-12 mt-4">
             <div class="d-flex justify-content-center my-2">
                 <a href="{{ route('dashboard', 'path='.$d['path']) }}" xmlns="http://www.w3.org/2000/svg">
                     <svg width="100" height="100" fill="#FF8A6D" class="bi bi-folder2" viewBox="0 0 16 16">
@@ -84,17 +84,6 @@
                 </a>
             </div>
             <div class="d-flex justify-content-center">
-                {{-- <form action="/{{$d['name']}}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <button type="submit" style="border: none;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="orange" class="bi bi-share"
-                            viewBox="0 0 16 16">
-                            <path
-                                d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z" />
-                        </svg>
-                    </button>
-                </form> --}}
                 <span class="mx-3">{{$d['name']}}</span>
                 <form action="{{ route('destroy') }}" method="POST">
                     @csrf
@@ -114,7 +103,7 @@
         @foreach ($files as $file=>$f)
         <div class="p-4 col col-lg-3 col-md-4 col-md-12">
             <div class="d-flex justify-content-center">
-                <form id="{{$f['name']}}" action="{{ route('privacity') }}" method="POST">
+                <form id="{{$f['name']}}" action="{{ route('privacity') }}" method="POST" class="mx-1">
                     @csrf
                     <div class="form-check form-switch">
                         <input type="hidden" name="path" value="{{ $f['path'] }}">
@@ -129,13 +118,13 @@
                     </div>
                 </form>
                 @if ($f['visibility'] == 'private')
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-lock-fill"
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-lock-fill mx-1"
                     viewBox="0 0 16 16">
                     <path
                         d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
                 </svg>
                 @else
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="green" class="bi bi-unlock-fill"
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="green" class="bi bi-unlock-fill mx-1"
                     viewBox="0 0 16 16">
                     <path
                         d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2z" />
@@ -143,7 +132,7 @@
                 @endif
             </div>
             <div class="d-flex justify-content-center my-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" fill="#F7B972"
+                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#F7B972"
                     class="bi bi-file-earmark-text" viewBox="0 0 16 16">
                     <path
                         d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z" />
