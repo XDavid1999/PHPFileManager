@@ -32,7 +32,7 @@ To install Composer dependencies for existing applications without wanting to in
 in the project root.
 
 ```yml
-docker run --rm
+docker run --rm \
     -u "$(id -u):$(id -g)" \
     -v $(pwd):/var/www/html \
     -w /var/www/html \
