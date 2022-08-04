@@ -156,7 +156,12 @@ class AwsS3 extends Controller
         // Check if request exists source and target
         if ($request->has('path')) {
             $file = Storage::disk('s3')->get($request->path);
-            return response($file)->header('Content-Type', 'application/octet-stream');
+            // Set name of file
+            $nameFile = getLastChildFromPath($request->path);
+            // Get metadata Content-Type
+            return response($file)
+                ->header('Content-Type', 'application/octet-stream')
+                ->header('Content-Disposition', 'attachment; filename="' . $nameFile . '"');
         } else {
             return redirect()->back()->with('error', 'Select file');
         }
