@@ -1,6 +1,16 @@
 @extends('base')
 @section('content')
-<div class="absolute-center elevation" >
+<div class="absolute-center elevation">
+    @if ($errors->any())
+    <div class="text-center alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
     @if ($formAction == '/register')
     <h1 class="h1 text-center pt-2">Register</h1>
     @else

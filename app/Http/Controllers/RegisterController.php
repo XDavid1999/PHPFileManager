@@ -43,6 +43,6 @@ class RegisterController extends Controller
         // Create shared directory
         Storage::disk('s3')->makeDirectory('/' . $user->name . '/shared');
 
-        return redirect('/dashboard');
+        return redirect('/dashboard')->with('success', 'Account created successfully!');
     }
 }

@@ -21,10 +21,10 @@ class LogInController extends Controller
     public function attempt()
     {
         if (Auth::attempt(['name' => request('name'), 'email' => request('email'), 'password' => request('password')])) {
-            return redirect('/dashboard');
+            return redirect('/dashboard')->with('success', 'You are logged in!');
         }
 
-        return redirect('/login');
+        return redirect('/login')->with('error', 'Invalid credentials!');
     }
 
     /**
