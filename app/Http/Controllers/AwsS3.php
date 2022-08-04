@@ -50,7 +50,7 @@ class AwsS3 extends Controller
             ];
         }, $directories);
 
-        $users = User::all();
+        $users = User::where('id', '!=', auth()->user()->id)->get();
         $categories = Category::all();
 
         return view('dashboard.dashboardBase', ['directories' => $directories, 'files' => $files, 'currentDirectory' => $currentDirectory, 'users' => $users, 'categories' => $categories]);
@@ -74,8 +74,21 @@ class AwsS3 extends Controller
                 }
                 // Get original name
                 $fileName = $request->name ? $request->name . '.' . $file->getClientOriginalExtension() : $file->getClientOriginalName();
+
+                // Set config for upload
+                $config = [
+                    'visibility' => $request->visibility
+                ];
+                if ($request->has('category')) {
+                    $config['Tagging'] = 'category=' . $request->category;
+                }
+
                 // Upload file
-                Storage::disk('s3')->put($request->currentDirectory . '/' . $fileName, file_get_contents($file), $request->visibility);
+                Storage::disk('s3')->put(
+                    $request->currentDirectory . '/' . $fileName,
+                    file_get_contents($file),
+                    $config
+                );
 
                 return redirect()->back()->with('success', 'File uploaded successfully');
             }
@@ -104,6 +117,7 @@ class AwsS3 extends Controller
 
     public function privacity(Request $request)
     {
+        // dd($request->all());
         Storage::disk('s3')->setVisibility($request->path, $request->visibility);
 
         return redirect()->back()->with('success', 'Change privacity successfully');
@@ -120,6 +134,31 @@ class AwsS3 extends Controller
             return redirect()->back()->with('success', 'File move success');
         } else {
             return redirect()->back()->with('error', 'Select source and target');
+        }
+    }
+
+    public function shared(Request $request)
+    {
+        // Check if request exists source and target
+        if ($request->has('source') && $request->has('user')) {
+            $nameFile = getLastChildFromPath($request->source);
+
+            // Copy file from one directory to another
+            Storage::disk('s3')->copy($request->source, $request->user . '/shared/' . $nameFile);
+            return redirect()->back()->with('success', 'File shared success with ' . $request->user);
+        } else {
+            return redirect()->back()->with('error', 'Select source and user');
+        }
+    }
+
+    public function get(Request $request)
+    {
+        // Check if request exists source and target
+        if ($request->has('path')) {
+            $file = Storage::disk('s3')->get($request->path);
+            return response($file)->header('Content-Type', 'application/octet-stream');
+        } else {
+            return redirect()->back()->with('error', 'Select file');
         }
     }
 }

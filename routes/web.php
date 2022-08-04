@@ -22,6 +22,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/delete', [AwsS3::class, 'destroy'])->name('destroy');
     Route::post('/privacity', [AwsS3::class, 'privacity'])->name('privacity');
     Route::post('/move', [AwsS3::class, 'move'])->name('move');
+    Route::post('/shared', [AwsS3::class, 'shared'])->name('shared');
+    Route::post('/download', [AwsS3::class, 'download'])->name('download');
+    Route::post('/get', [AwsS3::class, 'get'])->name('get');
+
 
     // Route::get('/app', [AwsS3::class, 'index'])->name('index');
 
