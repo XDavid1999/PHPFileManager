@@ -26,9 +26,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/download', [AwsS3::class, 'download'])->name('download');
     Route::post('/get', [AwsS3::class, 'get'])->name('get');
 
-
-    // Route::get('/app', [AwsS3::class, 'index'])->name('index');
-
     /**
      *
      * Category paths
