@@ -18,26 +18,3 @@
         </div>
     </form>
 </div>
-
-
-<style>
-    .dialog {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: white;
-        z-index: 9999;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 6px 20px rgb(0 0 0 / 0.4);
-        display: none;
-        width: 500px
-    }
-
-    @media (max-width: 768px) {
-        .dialog {
-            width: 90% !important;
-        }
-    }
-</style>

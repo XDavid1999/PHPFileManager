@@ -80,25 +80,3 @@
     </div>
 </div>
 @endsection
-
-<style>
-    .cards{
-        width: 500px;
-        margin: 20px;
-        min-height: 300px;
-        border-style: solid;
-        border-radius: 20px;
-        border-color: rgb(219, 219, 219);
-        border-width: 2px;
-    }
-    .middle{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    @media (max-width: 768px) {
-        .cards{
-            width: 90% !important;
-        }
-    }
-</style>

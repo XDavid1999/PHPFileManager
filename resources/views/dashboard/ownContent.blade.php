@@ -1,4 +1,4 @@
-<div>
+<div class="outlined">
     @include('dashboard.forms.uploadContentForm', ['currentDirectory' => $currentDirectory, ['categories' =>
     $categories]])
     @include('dashboard.forms.moveFolderForm', ['directories' => str_contains($currentDirectory, '/') ?
@@ -6,44 +6,17 @@
     @include('dashboard.forms.createFolderForm')
     @include('dashboard.forms.shareContentForm', ['users' => $users, 'files' => $files])
 
-    <style>
-        .ownContentHead {
-            display: flex;
-            justify-content: space-between;
-            padding: 20px;
-            margin: 0px 20px;
-        }
-
-        .icons {
-            margin: 0px 20px;
-        }
-
-        @media (max-width: 768px) {
-            .ownContentHead {
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                padding: 0px;
-                margin: 0px;
-            }
-
-            .icons {
-                width: 20px !important;
-            }
-        }
-    </style>
-
     <div class="ownContentHead">
         <h2 class=" text-center">My Content - {{$currentDirectory}}</h2>
         <div class="d-flex">
             @if (str_contains($currentDirectory, '/'))
-            <a class="ms-2" href="{{ route('dashboard', 'path='.getParentDirectory($currentDirectory)) }}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
-                    class="bi bi-arrow-left-circle mx-4" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                        d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
-                </svg>
-            </a>
+                <a class="ms-2" href="{{ route('dashboard', 'path='.getParentDirectory($currentDirectory)) }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                        class="bi bi-arrow-left-circle icons" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
+                    </svg>
+                </a>
             @endif
             <svg onclick="displayCreateFolderDialog()" xmlns="http://www.w3.org/2000/svg" width="40" height="40"
                 fill="#DB7DFA" class="bi bi-folder-plus icons" viewBox="0 0 16 16">
@@ -73,12 +46,12 @@
             </svg>
         </div>
     </div>
-    <div class="d-flex justify-content-center px-5 pb-5 row">
+    <div class="d-flex justify-content-center px-5 row">
         @foreach ($directories as $directory=>$d)
         <div class="p-4 col col-lg-3 col-md-4 col-md-12 mt-4">
             <div class="d-flex justify-content-center my-2">
                 <a href="{{ route('dashboard', 'path='.$d['path']) }}" xmlns="http://www.w3.org/2000/svg">
-                    <svg width="100" height="100" fill="#FF8A6D" class="bi bi-folder2" viewBox="0 0 16 16">
+                    <svg width="80" height="80" fill="#FF8A6D" class="bi bi-folder2" viewBox="0 0 16 16">
                         <path
                             d="M1 3.5A1.5 1.5 0 0 1 2.5 2h2.764c.958 0 1.76.56 2.311 1.184C7.985 3.648 8.48 4 9 4h4.5A1.5 1.5 0 0 1 15 5.5v7a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 12.5v-9zM2.5 3a.5.5 0 0 0-.5.5V6h12v-.5a.5.5 0 0 0-.5-.5H9c-.964 0-1.71-.629-2.174-1.154C6.374 3.334 5.82 3 5.264 3H2.5zM14 7H2v5.5a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 .5-.5V7z" />
                     </svg>

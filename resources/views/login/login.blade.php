@@ -1,6 +1,6 @@
 @extends('base')
 @section('content')
-<div class="absolute-center" style="box-shadow: 0 6px 20px rgb(0 0 0 / 0.4); border-radius: 15px;">
+<div class="absolute-center elevation" >
     @if ($formAction == '/register')
     <h1 class="h1 text-center pt-2">Register</h1>
     @else
@@ -42,19 +42,3 @@
     @endif
 </div>
 @endsection
-
-<style>
-    .absolute-center{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 500px;
-    }
-
-    @media (max-width: 768px) {
-        .absolute-center {
-            width: 90% !important;
-        }
-    }
-</style>
